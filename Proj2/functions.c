@@ -15,7 +15,38 @@ extern xTaskHandle openClosePassengerHandler;
 extern xTaskHandle controlHandler;
 extern xSemaphoreHandle xBinarySemaphore1;
 extern xSemaphoreHandle xBinarySemaphore2;
+extern xSemaphoreHandle xBinarySemaphoreDriverAuto;
+extern xSemaphoreHandle xBinarySemaphorePassengerAuto;
 
+void openCloseDriverAuto() {
+	
+	int order;
+	while(1)
+	{
+	xSemaphoreTake(xBinarySemaphoreDriverAuto,portMAX_DELAY);
+	 
+  xQueueReceive(xQueuePD,&order ,portMAX_DELAY);
+	if(order == 1){
+		motorUP();
+		//while(DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1);
+		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>3) != 1){
+		for(int i=0;i < 1000;i++){}
+		}
+		int x = 0;
+	}
+	else if(order == 0){
+		
+		motorDOWN();
+		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1);
+		int x = 0;
+		
+	}
+	motorOFF();
+	taskYIELD();
+}
+	
+	
+}
 
 void openCloseDriver() {
 	int order;
@@ -88,6 +119,12 @@ void control(){
 			xSemaphoreGive(xBinarySemaphore1);
 	
 		}
+		else if(DIO_ReadPin(&GPIO_PORTB_DATA_R,0) == 1){// for Driver auto up
+			xQueueSend(xQueuePD, &up, 0);	
+			xSemaphoreGive(xBinarySemaphoreDriverAuto);
+	
+		}
+		
 		else if(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1){// for passenger down
 		//high pri
 			xQueueSend(xQueuePD, &up, 0);	
@@ -99,6 +136,8 @@ void control(){
 			xSemaphoreGive(xBinarySemaphore2);
 	
 		}
+		
+		
 	}
 
 }
