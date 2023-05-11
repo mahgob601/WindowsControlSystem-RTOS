@@ -29,6 +29,7 @@ int main(){
 	xBinarySemaphore1 = xSemaphoreCreateBinary();
 	xBinarySemaphore2 = xSemaphoreCreateBinary();
 	xBinarySemaphoreDriverAuto = xSemaphoreCreateBinary();
+	xBinarySemaphorePassengerAuto= xSemaphoreCreateBinary();
 	xTaskCreate(openCloseDriver,"openCloseDriver",240,NULL,2,&openCloseDriverHandler);
 	xTaskCreate(openCloseDriverAuto,"openCloseDriverAuto",240,NULL,2,&openCloseDriverAutoHandler);
 	xTaskCreate(openClosePassenger,"openClosePassenger",240,NULL,2,&openClosePassengerHandler);

@@ -29,7 +29,7 @@ void openCloseDriverAuto() {
 	if(order == 1){
 		motorUP();
 		//while(DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1);
-		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>2) != 1){
+		while(((*(&GPIO_PORTB_DATA_R) & (1<<2))>>2) != 1){
 		for(int i=0;i < 1000;i++){}
 		}
 		int x = 0;
@@ -86,14 +86,14 @@ void openCloseDriver() {
 		
 		motorUP();
 		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1){
-		for(int i=0;i<1000;i++){}
+		for(int i=0;i<100;i++){}
 		}
 	}
 	else if(order == 0){
 		
 		motorDOWN();
 		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,6) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1){
-		for(int i=0;i<1000;i++){}
+		for(int i=0;i<100;i++){}
 		}
 	}
 	
@@ -123,6 +123,10 @@ void control(){
 		}
 		else if(DIO_ReadPin(&GPIO_PORTB_DATA_R,0) == 1){// for Driver auto up
 			xQueueSend(xQueuePD, &up, 0);	
+			xSemaphoreGive(xBinarySemaphoreDriverAuto);
+	
+		}else if(DIO_ReadPin(&GPIO_PORTB_DATA_R,5) == 1){// for Driver auto down
+			xQueueSend(xQueuePD, &down, 0);	
 			xSemaphoreGive(xBinarySemaphoreDriverAuto);
 	
 		}

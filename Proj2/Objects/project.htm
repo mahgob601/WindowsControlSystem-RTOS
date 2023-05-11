@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu May 11 18:44:55 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Thu May 11 20:12:45 2023
 <BR><P>
 <H3>Maximum Stack Usage =        272 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1313,7 +1313,6 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;control
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;openClosePassenger
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;openCloseDriverAuto
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;openCloseDriver
 </UL>
 
@@ -1351,7 +1350,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(.text)
 </UL>
-<P><STRONG><a name="[7b]"></a>control</STRONG> (Thumb, 356 bytes, Stack size 40 bytes, functions.o(.text.control))
+<P><STRONG><a name="[7b]"></a>control</STRONG> (Thumb, 422 bytes, Stack size 40 bytes, functions.o(.text.control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = control &rArr; xQueueGenericSend &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; uxListRemove
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
@@ -1420,7 +1419,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text.main)
 </UL>
-<P><STRONG><a name="[79]"></a>openCloseDriverAuto</STRONG> (Thumb, 186 bytes, Stack size 32 bytes, functions.o(.text.openCloseDriverAuto))
+<P><STRONG><a name="[79]"></a>openCloseDriverAuto</STRONG> (Thumb, 216 bytes, Stack size 32 bytes, functions.o(.text.openCloseDriverAuto))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = openCloseDriverAuto &rArr; xQueueReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; uxListRemove
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motorOFF
@@ -1428,11 +1427,10 @@ Global Symbols
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motorUP
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceive
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueSemaphoreTake
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DIO_ReadPin
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.text.main)
 </UL>
-<P><STRONG><a name="[7a]"></a>openClosePassenger</STRONG> (Thumb, 276 bytes, Stack size 32 bytes, functions.o(.text.openClosePassenger))
+<P><STRONG><a name="[7a]"></a>openClosePassenger</STRONG> (Thumb, 272 bytes, Stack size 32 bytes, functions.o(.text.openClosePassenger))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = openClosePassenger &rArr; xQueueReceive &rArr; prvUnlockQueue &rArr; prvNotifyQueueSetContainer &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit &rArr; uxListRemove
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;motorOFF

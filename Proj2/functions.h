@@ -6,7 +6,5 @@
 	void openCloseDriver();
 	void openCloseDriverAuto();
 	void openClosePassenger();
-	void AutoOpenCloseDriver();
-	void AutoOpenClosePassenger();
 #endif
 
