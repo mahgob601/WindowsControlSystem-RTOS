@@ -23,23 +23,16 @@ void openCloseDriver() {
 	{
 	xSemaphoreTake(xBinarySemaphore1,portMAX_DELAY);
 	 
-	//DIO_WritePin(&GPIO_PORTA_DATA_R,2,1);	
   xQueueReceive(xQueuePD,&order ,portMAX_DELAY);
 	if(order == 1){
-		//DIO_WritePin(&GPIO_PORTA_DATA_R,4,0);
-		//DIO_WritePin(&GPIO_PORTA_DATA_R,2,1);
-		//DIO_WritePin(&GPIO_PORTA_DATA_R,3,1);
 		
 		motorUP();
-		while(DIO_ReadPin(&GPIO_PORTF_DATA_R,4) == 0);
-		//DIO_WritePin(&GPIO_PORTA_DATA_R,2,0);
-		//DIO_WritePin(&GPIO_PORTA_DATA_R,3,0);
-		//DIO_WritePin(&GPIO_PORTA_DATA_R,4,0);
+		while(DIO_ReadPin(&GPIO_PORTF_DATA_R,4) == 0 && DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1);
 	}
 	else if(order == 0){
 		
 		motorDOWN();
-		while(DIO_ReadPin(&GPIO_PORTF_DATA_R,0) == 0);
+		while(DIO_ReadPin(&GPIO_PORTF_DATA_R,0) == 0 && DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1);
 		
 		
 		
@@ -59,14 +52,14 @@ void openCloseDriver() {
 		
 		
 		motorUP();
-		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1){
+		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1){
 		for(int i=0;i<1000;i++){}
 		}
 	}
 	else if(order == 0){
 		
 		motorDOWN();
-		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,6) == 1){
+		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,6) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1){
 		for(int i=0;i<1000;i++){}
 		}
 	}
