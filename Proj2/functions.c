@@ -29,7 +29,7 @@ void openCloseDriverAuto() {
 	if(order == 1){
 		motorUP();
 		//while(DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1);
-		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>3) != 1){
+		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>2) != 1){
 		for(int i=0;i < 1000;i++){}
 		}
 		int x = 0;
@@ -37,7 +37,9 @@ void openCloseDriverAuto() {
 	else if(order == 0){
 		
 		motorDOWN();
-		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1);
+		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>3) != 1){
+		for(int i=0;i < 1000;i++){}
+		}
 		int x = 0;
 		
 	}
