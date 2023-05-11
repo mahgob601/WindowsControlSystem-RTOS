@@ -21,11 +21,6 @@ void vApplicationIdleHook(){
 
 int main(){
 	DIO_init();
-	//DIO_WritePin(&GPIO_PORTA_DATA_R,3,0); 
-	//DIO_WritePin(&GPIO_PORTA_DATA_R,2,1);
-	//DIO_WritePin(&GPIO_PORTA_DATA_R,4,1); 
-	
-	
 	xBinarySemaphore1 = xSemaphoreCreateBinary();
 	xBinarySemaphore2 = xSemaphoreCreateBinary();
 	xTaskCreate(openCloseDriver,"openCloseDriver",240,NULL,2,&openCloseDriverHandler);

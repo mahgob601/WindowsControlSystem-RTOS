@@ -20,6 +20,6 @@
   D:\Arm\Packs\ARM\CMSIS-FreeRTOS\10.5.1\Source\include\mpu_wrappers.h \
   D:\Arm\Packs\ARM\CMSIS-FreeRTOS\10.5.1\Source\include\task.h \
   D:\Arm\Packs\ARM\CMSIS-FreeRTOS\10.5.1\Source\include\list.h DIO.h \
-  types.h tm4c123gh6pm.h bitwise_operation.h \
+  types.h tm4c123gh6pm.h bitwise_operation.h motorControl.h \
   D:\Arm\Packs\ARM\CMSIS-FreeRTOS\10.5.1\Source\include\semphr.h \
   D:\Arm\Packs\ARM\CMSIS-FreeRTOS\10.5.1\Source\include\queue.h

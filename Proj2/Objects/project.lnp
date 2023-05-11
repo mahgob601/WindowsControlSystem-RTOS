@@ -2,6 +2,7 @@
 ".\objects\main.o"
 ".\objects\dio.o"
 ".\objects\functions.o"
+".\objects\motorcontrol.o"
 ".\objects\startup_tm4c123.o"
 ".\objects\system_tm4c123.o"
 ".\objects\freertos_evr.o"

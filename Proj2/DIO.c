@@ -76,4 +76,3 @@ uint32 DIO_ReadPort(ulong32_ptr port)
 {
   return *(port);
 }
-
