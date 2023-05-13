@@ -39,8 +39,8 @@ void DIO_init(void)
   while((SYSCTL_PRGPIO_R & 0x1)!= 0x1); //actual clk value check 
   GPIO_PORTA_LOCK_R = 0x4C4F434B; 
   GPIO_PORTA_CR_R |= 0xFF; 
-  GPIO_PORTA_DIR_R|= 0xFF;
-  //GPIO_PORTB_PDR_R |= 0xFF;
+  GPIO_PORTA_DIR_R|= 0x3F;
+  GPIO_PORTA_PDR_R |= 0xC0;
   GPIO_PORTA_DEN_R|= 0xFF;
 }
 

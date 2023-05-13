@@ -14,30 +14,38 @@ xTaskHandle openCloseDriverAutoHandler;
 xTaskHandle openClosePassengerHandler;
 xTaskHandle openClosePassengerAutoHandler;
 xTaskHandle controlHandler;
+xTaskHandle ObstacleHandler;
+
 xSemaphoreHandle xBinarySemaphore1;
 xSemaphoreHandle xBinarySemaphore2;
 xSemaphoreHandle xBinarySemaphoreDriverAuto;
 xSemaphoreHandle xBinarySemaphorePassengerAuto;
+
+// semaphore obstacle
+xSemaphoreHandle xBinarySemaphoreObstacle;
+
 void vApplicationIdleHook(){
 }
 
 
 int main(){
 	DIO_init();
-	//while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>3) != 1);
-	//while(1);
-	//while(1);
+	
 	xBinarySemaphore1 = xSemaphoreCreateBinary();
 	xBinarySemaphore2 = xSemaphoreCreateBinary();
 	xBinarySemaphoreDriverAuto = xSemaphoreCreateBinary();
 	xBinarySemaphorePassengerAuto= xSemaphoreCreateBinary();
-	xTaskCreate(openCloseDriver,"openCloseDriver",240,NULL,2,&openCloseDriverHandler);
-	xTaskCreate(openCloseDriverAuto,"openCloseDriverAuto",240,NULL,2,&openCloseDriverAutoHandler);
-	xTaskCreate(openClosePassenger,"openClosePassenger",240,NULL,2,&openClosePassengerHandler);
+	// obstacle semahore
+	xBinarySemaphoreObstacle = xSemaphoreCreateBinary();
+	xTaskCreate(openCloseDriver,"openCloseDriver",200,NULL,2,&openCloseDriverHandler);
+	xTaskCreate(openCloseDriverAuto,"openCloseDriverAuto",200,NULL,2,&openCloseDriverAutoHandler);
+	xTaskCreate(openClosePassenger,"openClosePassenger",200,NULL,2,&openClosePassengerHandler);
 	
-	xTaskCreate(openClosePassengerAuto,"openClosePassengerAuto",240,NULL,2,&openClosePassengerAutoHandler);
-	xTaskCreate(control,"control",240,NULL,1,&controlHandler);
-	//xTaskCreate(&fun2,"fun2",240,NULL,2,NULL);
+	//Obstacle task
+	xTaskCreate(Obstacle,"Obstacle",200,NULL,2,&ObstacleHandler);
+	
+	xTaskCreate(openClosePassengerAuto,"openClosePassengerAuto",200,NULL,2,&openClosePassengerAutoHandler);
+	xTaskCreate(control,"control",200,NULL,1,&controlHandler);
 	vTaskStartScheduler();
 	for(;;);
 	

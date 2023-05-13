@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 I:\A- Faculty\B- Senior 1\Semester 2\CSE411 Real-Time Embedded\Labs\MAJOR TASK\WindowsControlSystem-RTOS\Proj2\project.uvprojx
-Project File Date:  05/11/2023
+Project File Date:  05/13/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
@@ -36,11 +36,11 @@ compiling system_TM4C123.c...
 compiling freertos_evr.c...
 compiling list.c...
 compiling port.c...
-compiling heap_2.c...
+compiling heap_4.c...
 compiling queue.c...
 compiling tasks.c...
 linking...
-Program Size: Code=14528 RO-data=748 RW-data=12 ZI-data=9144  
+Program Size: Code=15948 RO-data=756 RW-data=8 ZI-data=9160  
 ".\Objects\project.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -57,7 +57,7 @@ Package Vendor: ARM
                 Bundle of FreeRTOS for Cortex-M and Cortex-A
    * Component: Config Variant: FreeRTOS Version: 10.5.1
    * Component: Core Variant: Cortex-M Version: 10.5.1
-   * Component: Heap Variant: Heap_2 Version: 10.5.1
+   * Component: Heap Variant: Heap_4 Version: 10.5.1
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.TM4C_DFP.1.1.0.pack
@@ -80,26 +80,26 @@ Package Vendor: Keil
       Include file:  Config/ARMCM/FreeRTOSConfig.h
 
    * Component: ARM.FreeRTOS::RTOS:Core:Cortex-M:10.5.1
-      Include file:  Source/include/FreeRTOS.h
-      Include file:  Source/include/semphr.h
       Source file:   Source/queue.c
       Include file:  Source/include/queue.h
+      Include file:  Source/include/semphr.h
+      Include file:  Source/include/FreeRTOS.h
       Include file:  Source/include/task.h
-      Source file:   Source/list.c
       Source file:   Source/tasks.c
+      Source file:   Source/list.c
       Source file:   Source/portable/GCC/ARM_CM4F/port.c
       Source file:   CMSIS/RTOS2/FreeRTOS/Source/freertos_evr.c
 
-   * Component: ARM.FreeRTOS::RTOS:Heap:Heap_2:10.5.1
-      Source file:   Source/portable/MemMang/heap_2.c
+   * Component: ARM.FreeRTOS::RTOS:Heap:Heap_4:10.5.1
+      Source file:   Source/portable/MemMang/heap_4.c
 
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:1.0.1
-      Source file:   Device/Source/system_TM4C123.c
       Include file:  Device/Include/TM4C123/TM4C123.h
       Source file:   Device/Source/ARM/startup_TM4C123.s
-Build Time Elapsed:  00:00:02
+      Source file:   Device/Source/system_TM4C123.c
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

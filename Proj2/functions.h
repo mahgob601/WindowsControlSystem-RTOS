@@ -7,5 +7,6 @@
 	void openCloseDriverAuto();
 	void openClosePassenger();
 	void openClosePassengerAuto();
+	void Obstacle();
 #endif
 
