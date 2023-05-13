@@ -16,14 +16,55 @@ extern xTaskHandle openClosePassengerHandler;
 extern xTaskHandle openClosePassengerAutoHandler;
 extern xTaskHandle controlHandler;
 extern xTaskHandle ObstacleHandler;
+//extern xTaskHandle LockHandler;
 
 extern xSemaphoreHandle xBinarySemaphore1;
 extern xSemaphoreHandle xBinarySemaphore2;
 extern xSemaphoreHandle xBinarySemaphoreDriverAuto;
 extern xSemaphoreHandle xBinarySemaphorePassengerAuto;
 extern xSemaphoreHandle xBinarySemaphoreObstacle;
+//extern xSemaphoreHandle xBinarySemaphoreLock;
 
-//1 up
+int LockFlag = 0;
+
+
+//void Lock(){
+//	int up =1;
+//	int down =0;
+//	while(1){
+//		xSemaphoreTake(xBinarySemaphoreLock, portMAX_DELAY);
+//		while(DIO_ReadPin(&GPIO_PORTA_DATA_R,6) == 1)
+//		{
+//			if(DIO_ReadPin(&GPIO_PORTF_DATA_R,4) == 0){
+//			xQueueSend(xQueuePD, &up, 0);	
+//			xSemaphoreGive(xBinarySemaphore1);
+//	
+//		}
+//		else if(DIO_ReadPin(&GPIO_PORTF_DATA_R,0) == 0){
+//			xQueueSend(xQueuePD, &down, 0);	
+//			xSemaphoreGive(xBinarySemaphore1);
+//	
+//		}
+//		else if(DIO_ReadPin(&GPIO_PORTB_DATA_R,0) == 1){// for Driver auto up
+//			xQueueSend(xQueuePD, &up, 0);	
+//			xSemaphoreGive(xBinarySemaphoreDriverAuto);
+//	
+//		}
+//		else if(DIO_ReadPin(&GPIO_PORTB_DATA_R,5) == 1){// for Driver auto down
+//			xQueueSend(xQueuePD, &down, 0);	
+//			xSemaphoreGive(xBinarySemaphoreDriverAuto);
+//	
+//		}
+//			
+//		
+//		}
+//	
+//	
+//	}
+//	
+
+
+//}
 void Obstacle(){
 	
 	int order;
@@ -31,6 +72,7 @@ void Obstacle(){
 	{
 	xSemaphoreTake(xBinarySemaphoreObstacle,portMAX_DELAY); 
 	motorOFF();	
+	for(int k=0; k<2000000; k++);
 	motorDOWN();
 	for(int k=0; k<4000000; k++);
 	motorOFF();
@@ -50,25 +92,33 @@ void openClosePassengerAuto(){
 	 
   xQueueReceive(xQueuePD,&order ,portMAX_DELAY);
 	if(order == 1){
-		motorUP();
-		//while(DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1);
-		while(((*(&GPIO_PORTB_DATA_R) & (1<<2))>>2) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,7) != 1){
-		for(int i=0;i < 1000;i++){}
+		if(DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1)
+	{
+			motorUP();
+			while(((*(&GPIO_PORTB_DATA_R) & (1<<2))>>2) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,7) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1){
+				for(int i=0;i < 1000;i++){}
 			
 		}
-		if(DIO_ReadPin(&GPIO_PORTA_DATA_R,7) == 1){
+			if(DIO_ReadPin(&GPIO_PORTA_DATA_R,7) == 1){
 			xSemaphoreGive(xBinarySemaphoreObstacle);
 			vTaskPrioritySet(ObstacleHandler, 3);
 		
 		}
-		int x = 0;
+		
+	}
+		
+		//while(DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1);
+		
 	}
 	else if(order == 0){
 		
+		if(DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1)
+	{
 		motorDOWN();
-		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>3) != 1){
+		while(((*(&GPIO_PORTB_DATA_R) & (1<<3))>>3) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1){
 		for(int i=0;i < 1000;i++){}
 		}
+	}
 		int x = 0;
 		
 	}
@@ -155,10 +205,10 @@ void openCloseDriver() {
   xQueueReceive(xQueuePD,&order ,portMAX_DELAY);
 	if(order == 1){
 		
-		
-		motorUP();
+		if(DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1){
+			motorUP();
 		//while(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,7)!=1 ){
-		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,7) != 1){
+		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,4) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,2) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,7) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1){
 		
 		for(int i=0;i<100;i++){}
 			
@@ -168,17 +218,22 @@ void openCloseDriver() {
 			vTaskPrioritySet(ObstacleHandler, 3);
 		
 		}
+		
+		
+		}
+		
 		/*if(DIO_ReadPin(&GPIO_PORTA_DATA_R,7)==1){
 			xSemaphoreGive(xBinarySemaphoreObstacle);
 		}*/
 	}
 	else if(order == 0){
-		
+		if(DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1){
 		motorDOWN();
-		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,6) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1){
+		while(DIO_ReadPin(&GPIO_PORTB_DATA_R,6) == 1 && DIO_ReadPin(&GPIO_PORTB_DATA_R,3) != 1 && DIO_ReadPin(&GPIO_PORTA_DATA_R,6) != 1){
 		for(int i=0;i<100;i++){}
 		}
 	}
+}
 	
 	motorOFF();
 	taskYIELD();
@@ -192,8 +247,10 @@ void control(){
 	int down =0;
 	xQueuePD = xQueueCreate(1 , sizeof(long));
 	
+	
 	while(1){
-		if(DIO_ReadPin(&GPIO_PORTF_DATA_R,4) == 0){
+		
+	 if(DIO_ReadPin(&GPIO_PORTF_DATA_R,4) == 0){
 			xQueueSend(xQueuePD, &up, 0);	
 			xSemaphoreGive(xBinarySemaphore1);
 	

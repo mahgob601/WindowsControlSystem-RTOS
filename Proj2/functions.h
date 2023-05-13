@@ -8,5 +8,6 @@
 	void openClosePassenger();
 	void openClosePassengerAuto();
 	void Obstacle();
+	void Lock();
 #endif
 
